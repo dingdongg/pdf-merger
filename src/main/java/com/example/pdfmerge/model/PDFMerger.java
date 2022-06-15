@@ -25,6 +25,7 @@ public class PDFMerger {
 
     // bring up file chooser window
     // initializes fileOne and fileTwo
+    // ** MUST BE CALLED BEFORE THE mergeFiles() METHOD
     public void openFileChooser(Stage stage) {
         List<File> selectedFiles = this.fileChooser.showOpenMultipleDialog(stage);
         if (selectedFiles.size() == NUM_FILES) {
@@ -33,7 +34,13 @@ public class PDFMerger {
         }
     }
 
-    // check that only PDFs have been selected
+    // check that only NUM_FILES PDFs have been selected
+    public boolean selectedPDFs() {
+        return false; // stub
+    }
 
     // merge the two selected files
+    public File mergeFiles() {
+        return this.fileOne; // stub
+    }
 }
