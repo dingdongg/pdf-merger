@@ -4,6 +4,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -13,14 +14,14 @@ import java.util.List;
 public class PDFMerger {
 
     private FileChooser fileChooser;
-    private File fileOne;
-    private File fileTwo;
+    private List<File> PDFfiles;
     private final String DEFAULT_DIRECTORY = "";
     private final int NUM_FILES = 2;
 
     public PDFMerger() {
         this.fileChooser = new FileChooser();
-        this.fileChooser.setTitle("Selected 2 PDFs for merging");
+        this.fileChooser.setTitle(String.format("Selected %d PDFs for merging", NUM_FILES));
+        this.PDFfiles = new LinkedList<>();
     }
 
     // bring up file chooser window
@@ -29,8 +30,7 @@ public class PDFMerger {
     public void openFileChooser(Stage stage) {
         List<File> selectedFiles = this.fileChooser.showOpenMultipleDialog(stage);
         if (selectedFiles.size() == NUM_FILES) {
-            this.fileOne = selectedFiles.get(0);
-            this.fileTwo = selectedFiles.get(1);
+            this.PDFfiles.addAll(selectedFiles);
         }
     }
 
@@ -41,6 +41,6 @@ public class PDFMerger {
 
     // merge the two selected files
     public File mergeFiles() {
-        return this.fileOne; // stub
+        return new File("STUB"); // stub
     }
 }
