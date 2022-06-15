@@ -1,25 +1,21 @@
 package com.example.pdfmerge;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 
 public class HelloController {
-    @FXML
-    public Button btnHello;
-    @FXML
-    public Button btnMock;
-    @FXML
-    private Label welcomeText;
+    public Button btnChooseFiles;
+    public ScrollPane selectedFilesPane;
+    public Button btnMerge;
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    public void onChooseButtonClick(ActionEvent actionEvent) {
+
     }
 
-    @FXML
-    protected void onMockButtonClick() {
-        Mock mock = new Mock(5);
-        welcomeText.setText(mock.check());
+    public void onMergeButtonClick(ActionEvent actionEvent) {
+
     }
 }
