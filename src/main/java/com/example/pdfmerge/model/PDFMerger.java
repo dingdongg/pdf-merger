@@ -36,6 +36,10 @@ public class PDFMerger {
         }
     }
 
+    public List<File> getPDFfiles() {
+        return this.PDFfiles;
+    }
+
     // merge the two selected files
     public File mergeFiles() {
         return new File("STUB"); // stub
