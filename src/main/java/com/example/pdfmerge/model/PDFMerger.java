@@ -36,7 +36,7 @@ public class PDFMerger {
         }
     }
 
-    public List<File> getPDFfiles() {
+    public List<File> getPDFs() {
         return this.PDFfiles;
     }
 

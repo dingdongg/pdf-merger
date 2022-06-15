@@ -27,7 +27,7 @@ public class HelloController {
     }
 
     private void updateSelectedFilesPane() {
-        List<File> files = this.merger.getPDFfiles();
+        List<File> files = this.merger.getPDFs();
         for (File f : files) {
             this.selectedFilesPane.getItems().add(f.getName());
         }
