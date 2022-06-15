@@ -21,6 +21,8 @@ public class PDFMerger {
     public PDFMerger() {
         this.fileChooser = new FileChooser();
         this.fileChooser.setTitle(String.format("Selected %d PDFs for merging", NUM_FILES));
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("PDF files (.pdf)", "*.pdf");
+        this.fileChooser.getExtensionFilters().add(filter);
         this.PDFfiles = new LinkedList<>();
     }
 
@@ -32,11 +34,6 @@ public class PDFMerger {
         if (selectedFiles.size() == NUM_FILES) {
             this.PDFfiles.addAll(selectedFiles);
         }
-    }
-
-    // check that only NUM_FILES PDFs have been selected
-    public boolean selectedPDFs() {
-        return false; // stub
     }
 
     // merge the two selected files
