@@ -1,5 +1,6 @@
 package com.example.pdfmerge.model;
 
+import com.example.pdfmerge.exceptions.NoFilesException;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.pdfbox.io.MemoryUsageSetting;
@@ -49,9 +50,9 @@ public class PDFMerger {
     }
 
     // merge the selected files
-    public void mergeFiles() {
+    public void mergeFiles() throws NoFilesException {
         if (this.PDFfiles.size() == 0) {
-            // throw exception?
+            throw new NoFilesException("No files were selected");
         } else {
             // merge
             PDFMergerUtility merger = new PDFMergerUtility();
