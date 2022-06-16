@@ -3,6 +3,7 @@ package com.example.pdfmerge;
 import com.example.pdfmerge.model.PDFMerger;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
@@ -16,6 +17,9 @@ public class MergerController {
     private static Stage baseStage;
 
     private final PDFMerger merger = new PDFMerger();
+    public Label outputLabel;
+    public Button btnEditSaveLocation;
+    public Button btnResetSelection;
 
     public static void initStage(Stage stage) {
         baseStage = stage;
@@ -35,5 +39,11 @@ public class MergerController {
 
     public void onMergeButtonClick(ActionEvent actionEvent) {
         this.merger.mergeFiles();
+    }
+
+    public void onResetButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void onLocationButtonClick(ActionEvent actionEvent) {
     }
 }
