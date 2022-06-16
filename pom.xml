@@ -70,7 +70,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.pdfmerge/com.example.pdfmerge.HelloApplication</mainClass>
+                            <mainClass>com.example.pdfmerge/com.example.pdfmerge.MergerApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
