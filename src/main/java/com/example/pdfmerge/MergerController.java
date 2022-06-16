@@ -1,5 +1,6 @@
 package com.example.pdfmerge;
 
+import com.example.pdfmerge.exceptions.NoFilesException;
 import com.example.pdfmerge.model.PDFMerger;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -28,6 +29,8 @@ public class MergerController {
     public void onChooseButtonClick(ActionEvent actionEvent) {
         this.merger.openFileChooser(baseStage);
         updateSelectedFilesPane();
+        int num = this.merger.getPDFs().size();
+        updateOutputLabel(String.format("%d PDFs selected", num));
     }
 
     private void updateSelectedFilesPane() {
@@ -38,7 +41,15 @@ public class MergerController {
     }
 
     public void onMergeButtonClick(ActionEvent actionEvent) {
-        this.merger.mergeFiles();
+        try {
+            this.merger.mergeFiles();
+        } catch (NoFilesException e) {
+            updateOutputLabel("No PDFs selected.");
+        }
+    }
+
+    private void updateOutputLabel(String s) {
+        this.outputLabel.setText(s);
     }
 
     public void onResetButtonClick(ActionEvent actionEvent) {
