@@ -35,6 +35,10 @@ public class PDFMerger {
     // ** MUST BE CALLED BEFORE THE mergeFiles() METHOD
     public void openFileChooser(Stage stage) {
         List<File> selectedFiles = this.fileChooser.showOpenMultipleDialog(stage);
+        if (selectedFiles == null) {
+            System.out.println("no files selected");
+            return;
+        }
         if (selectedFiles.size() == NUM_FILES) {
             this.PDFfiles.addAll(selectedFiles);
         }
