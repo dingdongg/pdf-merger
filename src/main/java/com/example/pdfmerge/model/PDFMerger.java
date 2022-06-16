@@ -2,8 +2,12 @@ package com.example.pdfmerge.model;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.pdfbox.io.MemoryUsageSetting;
+import org.apache.pdfbox.multipdf.PDFMergerUtility;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,7 +45,26 @@ public class PDFMerger {
     }
 
     // merge the two selected files
-    public File mergeFiles() {
-        return new File("STUB"); // stub
+    public void mergeFiles() {
+        if (this.PDFfiles.size() != NUM_FILES) {
+            // throw exception?
+        } else {
+            // merge
+            PDFMergerUtility merger = new PDFMergerUtility();
+            for (File f : getPDFs()) {
+                try {
+                    merger.addSource(f);
+                } catch (FileNotFoundException e) {
+                    System.out.println("FILE NOT FOUND");
+                }
+            }
+            merger.setDestinationFileName(DEFAULT_DIRECTORY);
+
+            try {
+                merger.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());
+            } catch (IOException e) {
+                System.out.println("IOException");
+            }
+        }
     }
 }
