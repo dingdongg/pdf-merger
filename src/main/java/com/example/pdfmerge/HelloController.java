@@ -34,6 +34,6 @@ public class HelloController {
     }
 
     public void onMergeButtonClick(ActionEvent actionEvent) {
-
+        this.merger.mergeFiles();
     }
 }
