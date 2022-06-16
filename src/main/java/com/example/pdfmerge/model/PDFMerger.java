@@ -20,11 +20,11 @@ public class PDFMerger {
     private FileChooser fileChooser;
     private List<File> PDFfiles;
     private final String DEFAULT_DIRECTORY = "";
-    private final int NUM_FILES = 2;
+    private final int MAX_NUM_FILES = 5;
 
     public PDFMerger() {
         this.fileChooser = new FileChooser();
-        this.fileChooser.setTitle(String.format("Selected %d PDFs for merging", NUM_FILES));
+        this.fileChooser.setTitle(String.format("Selected up to %d PDFs for merging", MAX_NUM_FILES));
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("PDF files (.pdf)", "*.pdf");
         this.fileChooser.getExtensionFilters().add(filter);
         this.PDFfiles = new LinkedList<>();
@@ -39,7 +39,7 @@ public class PDFMerger {
             System.out.println("no files selected");
             return;
         }
-        if (selectedFiles.size() == NUM_FILES) {
+        if (selectedFiles.size() <= MAX_NUM_FILES) {
             this.PDFfiles.addAll(selectedFiles);
         }
     }
@@ -48,9 +48,9 @@ public class PDFMerger {
         return this.PDFfiles;
     }
 
-    // merge the two selected files
+    // merge the selected files
     public void mergeFiles() {
-        if (this.PDFfiles.size() != NUM_FILES) {
+        if (this.PDFfiles.size() == 0) {
             // throw exception?
         } else {
             // merge
