@@ -24,5 +24,8 @@
       <VBox.margin>
          <Insets top="10.0" />
       </VBox.margin></Button>
-   <Button fx:id="btnMerge" mnemonicParsing="false" onAction="#onMergeButtonClick" text="Merge!" />
+   <Button fx:id="btnMerge" mnemonicParsing="false" onAction="#onMergeButtonClick" text="Merge!">
+      <VBox.margin>
+         <Insets />
+      </VBox.margin></Button>
 </VBox>
