@@ -43,6 +43,7 @@ public class MergerController {
     public void onMergeButtonClick(ActionEvent actionEvent) {
         try {
             this.merger.mergeFiles();
+            updateOutputLabel("Merged!");
         } catch (NoFilesException e) {
             updateOutputLabel("No PDFs selected.");
         }
