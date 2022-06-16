@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.List;
 
-public class HelloController {
+public class MergerController {
     public Button btnChooseFiles;
     public ListView<String> selectedFilesPane = new ListView<>();
     public Button btnMerge;
