@@ -54,7 +54,7 @@ public class MergerController {
 
     public void onResetButtonClick(ActionEvent actionEvent) {
         resetSelectionAndPane();
-        updateOutputLabel("Unselected all PDFs.");
+        updateOutputLabel("Deselected all PDFs.");
     }
 
     private void resetSelectionAndPane() {
@@ -64,5 +64,7 @@ public class MergerController {
     }
 
     public void onLocationButtonClick(ActionEvent actionEvent) {
+        this.merger.openSaveLocationChooser(baseStage);
+        updateOutputLabel(String.format("Files will be saved to %s", this.merger.getSaveLocation()));
     }
 }
