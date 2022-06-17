@@ -1,6 +1,7 @@
 package com.example.pdfmerge.model;
 
 import com.example.pdfmerge.exceptions.NoFilesException;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.pdfbox.io.MemoryUsageSetting;
@@ -20,7 +21,7 @@ public class PDFMerger {
 
     private FileChooser fileChooser;
     private List<File> PDFfiles;
-    private final String DEFAULT_DIRECTORY = "";
+    private String DEFAULT_DIRECTORY;
     private final int MAX_NUM_FILES = 5;
 
     public PDFMerger() {
@@ -75,5 +76,15 @@ public class PDFMerger {
 
     public void resetSelection() {
         this.PDFfiles = new LinkedList<>();
+    }
+
+    public void openSaveLocationChooser(Stage stage) {
+        DirectoryChooser folderChooser = new DirectoryChooser();
+        File newPath = folderChooser.showDialog(stage);
+        DEFAULT_DIRECTORY = newPath.getAbsolutePath();
+    }
+
+    public String getSaveLocation() {
+        return this.DEFAULT_DIRECTORY;
     }
 }
