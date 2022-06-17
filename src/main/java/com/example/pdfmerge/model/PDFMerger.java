@@ -72,4 +72,8 @@ public class PDFMerger {
             }
         }
     }
+
+    public void resetSelection() {
+        this.PDFfiles = new LinkedList<>();
+    }
 }
