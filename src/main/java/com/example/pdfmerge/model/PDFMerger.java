@@ -21,7 +21,7 @@ public class PDFMerger {
 
     private FileChooser fileChooser;
     private List<File> PDFfiles;
-    private String DEFAULT_DIRECTORY;
+    private SavePathSelector pathSelector;
     private final int MAX_NUM_FILES = 5;
 
     public PDFMerger() {
@@ -29,6 +29,7 @@ public class PDFMerger {
         this.fileChooser.setTitle(String.format("Selected up to %d PDFs for merging", MAX_NUM_FILES));
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("PDF files (.pdf)", "*.pdf");
         this.fileChooser.getExtensionFilters().add(filter);
+        this.pathSelector = new SavePathSelector();
         this.PDFfiles = new LinkedList<>();
     }
 
@@ -64,7 +65,7 @@ public class PDFMerger {
                     System.out.println("FILE NOT FOUND");
                 }
             }
-            merger.setDestinationFileName(DEFAULT_DIRECTORY);
+            merger.setDestinationFileName(pathSelector.getFileFullPath());
 
             try {
                 merger.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());
@@ -78,13 +79,15 @@ public class PDFMerger {
         this.PDFfiles = new LinkedList<>();
     }
 
+
+    // move the two function below into SavePathSelector.java
     public void openSaveLocationChooser(Stage stage) {
         DirectoryChooser folderChooser = new DirectoryChooser();
         File newPath = folderChooser.showDialog(stage);
-        DEFAULT_DIRECTORY = newPath.getAbsolutePath();
+        this.pathSelector.setSavePath(newPath.getAbsolutePath());
     }
 
     public String getSaveLocation() {
-        return this.DEFAULT_DIRECTORY;
+        return this.pathSelector.getSavePath();
     }
 }
