@@ -3,6 +3,9 @@
 ### Description
 PDF Merger merges multiple PDFs into a single PDF.
 
+### Installation pre-requirements
+The latest version of JRE must be installed prior to the installation steps.
+
 ### Installation
 An executable `.jar` file can be built using this project.
 
