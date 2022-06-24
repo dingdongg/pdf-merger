@@ -19,7 +19,11 @@ public class SavePathSelector {
 
     public SavePathSelector() {
         this.userPrefs = Preferences.userRoot();
-        this.userPrefs.put(this.PATH_KEY, this.DEFAULT_DIRECTORY);
+        if (getSavePath().equals(this.DEFAULT_DIRECTORY)) {
+            this.userPrefs.put(this.PATH_KEY, this.DEFAULT_DIRECTORY);
+        } else {
+            this.setSavePath(getSavePath());
+        }
         this.fileName = updateFileName(); // set to "/merged-YYYYMMDDHHMMSS.pdf"
     }
 
