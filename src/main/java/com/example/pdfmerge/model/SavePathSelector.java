@@ -30,11 +30,12 @@ public class SavePathSelector {
 
     private String getDateIdentifier(Calendar timeInfo) {
         String year = Integer.toString(timeInfo.get(Calendar.YEAR));
-        String month = Integer.toString(timeInfo.get(Calendar.MONTH));
+        String month = Integer.toString(timeInfo.get(Calendar.MONTH) + 1); // MONTH is zero-indexed, increment by 1
         String day = Integer.toString(timeInfo.get(Calendar.DAY_OF_MONTH));
         String hour = Integer.toString(timeInfo.get(Calendar.HOUR_OF_DAY));
         String min = Integer.toString(timeInfo.get(Calendar.MINUTE));
         String sec = Integer.toString(timeInfo.get(Calendar.SECOND));
+//        System.out.println(String.format("%s %s %s, %s:%s:%sPM", year, month, day, hour, min, sec));
         return year + month + day + hour + min + sec;
     }
 
