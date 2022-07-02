@@ -5,6 +5,7 @@ import com.example.pdfmerge.model.PDFMerger;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -63,9 +64,27 @@ public class MergerController {
                 listCell.setOnDragOver((DragEvent event) -> {
                     System.out.println("listcell DRAG_OVER");
 
-                    if (event.getGestureSource() != this && event.getDragboard().hasString()) {
+                    if (event.getGestureSource() != listCell && event.getDragboard().hasString()) {
                         event.acceptTransferModes(TransferMode.MOVE);
                     }
+
+                    event.consume();
+                });
+
+                listCell.setOnDragEntered((DragEvent event) -> {
+                    System.out.println("listcell DRAG_ENTERED");
+
+                    if (event.getGestureSource() != listCell && event.getDragboard().hasString()) {
+                        listCell.setStyle("color: green;");
+                    }
+
+                    event.consume();
+                });
+
+                listCell.setOnDragExited((DragEvent event) -> {
+                    System.out.println("listcell DRAG_EXITED");
+
+                    listCell.setStyle("");
 
                     event.consume();
                 });
