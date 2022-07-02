@@ -7,9 +7,12 @@ PDF Merger merges multiple PDFs into a single PDF.
 The latest version of JRE must be installed prior to the installation steps.
 
 ### Installation
-An executable `.jar` file can be built using this project. You can also get the `.jar` file in `dist/`
+Please see the "Releases" tab on the right for the latest production builds!
 
-#### IntelliJ
+### Cloning & Building 
+The following instructions are for those that would like to create the `.jar` file themselves.
+
+#### On IntelliJ
 1. Clone this repository into your local machine.
 2. in `src/main/java`, make sure `FakeMain.java` is **un-commented**.
 3. Under "File", click "Project Structure".
