@@ -15,7 +15,6 @@ import java.util.List;
 
 /**
  * Class that handles the merging of the PDFs selected.
- * As an initial implementation, only allow 2 PDFs to be merged at once.
  */
 public class PDFMerger {
 
@@ -34,7 +33,6 @@ public class PDFMerger {
     }
 
     // bring up file chooser window
-    // initializes fileOne and fileTwo
     // ** MUST BE CALLED BEFORE THE mergeFiles() METHOD
     public void openFileChooser(Stage stage) {
         List<File> selectedFiles = this.fileChooser.showOpenMultipleDialog(stage);
