@@ -89,6 +89,30 @@ public class MergerController {
                     event.consume();
                 });
 
+                listCell.setOnDragDropped((DragEvent event) -> {
+                    System.out.println("listcell DRAG_DROPPED");
+
+                    Dragboard db = event.getDragboard();
+                    boolean dragSuccessful = false;
+                    if (db.hasString()) {
+                        listCell.setText(db.getString());
+                        dragSuccessful = true;
+                    }
+
+                    event.setDropCompleted(dragSuccessful);
+                    event.consume();
+                });
+
+                listCell.setOnDragDone((DragEvent event) -> {
+                    System.out.println("listcell DRAG_DONE");
+
+                    if (event.getTransferMode() == TransferMode.MOVE) {
+                        listCell.setText("");
+                    }
+
+                    event.consume();
+                });
+
                 return listCell;
             }
         });
