@@ -17,7 +17,7 @@ public class MergerApplication extends Application {
         Rectangle2D screenRes = Screen.getPrimary().getBounds();
         Scene scene = new Scene(fxmlLoader.load(), screenRes.getWidth() / 2, screenRes.getHeight() * 3 / 4);
         stage.setTitle("PDF Merger");
-        stage.getIcons().add(new Image("file:icon.png"));
+        stage.getIcons().add(new Image("file:images/icon.png"));
         stage.setScene(scene);
         MergerController.initStage(stage); // passes in this stage for use in HelloController
         stage.show();
