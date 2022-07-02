@@ -26,15 +26,18 @@ public class MergerController {
 
     public void onChooseButtonClick(ActionEvent actionEvent) {
         this.merger.openFileChooser(baseStage);
-        updateSelectedFilesPane();
         int num = this.merger.getPDFs().size();
+        updateSelectedFilesPane();
         updateOutputLabel(String.format("%d PDFs selected", num));
     }
 
     private void updateSelectedFilesPane() {
         List<File> files = this.merger.getPDFs();
+        List<String> displayedFiles = this.selectedFilesPane.getItems();
         for (File f : files) {
-            this.selectedFilesPane.getItems().add(f.getName());
+            if (!displayedFiles.contains(f.getName())) {
+                this.selectedFilesPane.getItems().add(f.getName());
+            }
         }
     }
 
