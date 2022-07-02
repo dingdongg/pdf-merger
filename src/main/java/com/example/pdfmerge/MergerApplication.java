@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -16,6 +17,7 @@ public class MergerApplication extends Application {
         Rectangle2D screenRes = Screen.getPrimary().getBounds();
         Scene scene = new Scene(fxmlLoader.load(), screenRes.getWidth() / 2, screenRes.getHeight() * 3 / 4);
         stage.setTitle("PDF Merger");
+        stage.getIcons().add(new Image("file:icon.png"));
         stage.setScene(scene);
         MergerController.initStage(stage); // passes in this stage for use in HelloController
         stage.show();
