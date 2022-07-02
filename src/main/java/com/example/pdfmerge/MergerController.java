@@ -5,6 +5,7 @@ import com.example.pdfmerge.model.PDFMerger;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.File;
 import java.util.List;
@@ -25,10 +26,31 @@ public class MergerController {
     }
 
     public void onChooseButtonClick(ActionEvent actionEvent) {
+        configureFileCells();
+
         this.merger.openFileChooser(baseStage);
         int num = this.merger.getPDFs().size();
         updateSelectedFilesPane();
         updateOutputLabel(String.format("%d PDFs selected", num));
+    }
+
+    // configure drag and drop functionality
+    private void configureFileCells() {
+        this.selectedFilesPane.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+
+            @Override
+            public ListCell<String> call(ListView<String> stringListView) {
+                ListCell<String> listCell = new ListCell<String>() {
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setText(item);
+                    }
+                };
+
+                return listCell;
+            }
+        });
     }
 
     private void updateSelectedFilesPane() {
