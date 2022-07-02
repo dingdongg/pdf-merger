@@ -4,6 +4,10 @@ import com.example.pdfmerge.exceptions.NoFilesException;
 import com.example.pdfmerge.model.PDFMerger;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -47,6 +51,17 @@ public class MergerController {
                         setText(item);
                     }
                 };
+
+                listCell.setOnDragDetected((MouseEvent event) -> {
+                    System.out.println("listcell DRAG_DETECTED");
+                    Dragboard db = listCell.startDragAndDrop(TransferMode.MOVE);
+
+                    ClipboardContent content = new ClipboardContent();
+                    content.putString(listCell.getItem());
+                    db.setContent(content);
+
+                    event.consume();
+                });
 
                 return listCell;
             }
