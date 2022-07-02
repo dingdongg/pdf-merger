@@ -2,15 +2,16 @@ package com.example.pdfmerge;
 
 import com.example.pdfmerge.exceptions.NoFilesException;
 import com.example.pdfmerge.model.PDFMerger;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MergerController {
     public Button btnChooseFiles;
@@ -51,18 +52,18 @@ public class MergerController {
                 };
 
                 listCell.setOnDragDetected((MouseEvent event) -> {
-                    System.out.println("listcell DRAG_DETECTED");
+                    System.out.println("DRAG_DETECTED");
                     Dragboard db = listCell.startDragAndDrop(TransferMode.MOVE);
 
                     ClipboardContent content = new ClipboardContent();
-                    content.putString(listCell.getItem());
+                    content.putString(String.valueOf(listCell.getIndex())); // paste index into dragboard
                     db.setContent(content);
 
                     event.consume();
                 });
 
                 listCell.setOnDragOver((DragEvent event) -> {
-                    System.out.println("listcell DRAG_OVER");
+                    System.out.println("DRAG_OVER");
 
                     if (event.getGestureSource() != listCell && event.getDragboard().hasString()) {
                         event.acceptTransferModes(TransferMode.MOVE);
@@ -72,7 +73,7 @@ public class MergerController {
                 });
 
                 listCell.setOnDragEntered((DragEvent event) -> {
-                    System.out.println("listcell DRAG_ENTERED");
+                    System.out.println("DRAG_ENTERED");
 
                     if (event.getGestureSource() != listCell && event.getDragboard().hasString()) {
                         listCell.setStyle("color: green;");
@@ -82,7 +83,7 @@ public class MergerController {
                 });
 
                 listCell.setOnDragExited((DragEvent event) -> {
-                    System.out.println("listcell DRAG_EXITED");
+                    System.out.println("DRAG_EXITED");
 
                     listCell.setStyle("");
 
@@ -90,12 +91,16 @@ public class MergerController {
                 });
 
                 listCell.setOnDragDropped((DragEvent event) -> {
-                    System.out.println("listcell DRAG_DROPPED");
+                    System.out.println("DRAG_DROPPED");
 
                     Dragboard db = event.getDragboard();
                     boolean dragSuccessful = false;
                     if (db.hasString()) {
-                        listCell.setText(db.getString());
+                        int tempIndex = Integer.parseInt(db.getString());
+                        ClipboardContent content = new ClipboardContent();
+                        content.putString(listCell.getItem());
+                        db.setContent(content);
+                        stringListView.getItems().set(listCell.getIndex(), stringListView.getItems().get(tempIndex));
                         dragSuccessful = true;
                     }
 
@@ -104,10 +109,11 @@ public class MergerController {
                 });
 
                 listCell.setOnDragDone((DragEvent event) -> {
-                    System.out.println("listcell DRAG_DONE");
+                    System.out.println("DRAG_DONE");
 
+                    // TODO: propagate swapped changes into this.merger
                     if (event.getTransferMode() == TransferMode.MOVE) {
-                        listCell.setText("");
+                        stringListView.getItems().set(listCell.getIndex(), event.getDragboard().getString());
                     }
 
                     event.consume();
