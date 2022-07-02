@@ -37,11 +37,11 @@ public class MergerController {
 
     // configure drag and drop functionality
     private void configureFileCells() {
-        this.selectedFilesPane.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+        this.selectedFilesPane.setCellFactory(new Callback<>() {
 
             @Override
             public ListCell<String> call(ListView<String> stringListView) {
-                ListCell<String> listCell = new ListCell<String>() {
+                ListCell<String> listCell = new ListCell<>() {
                     @Override
                     public void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
@@ -49,73 +49,96 @@ public class MergerController {
                     }
                 };
 
-                listCell.setOnDragDetected((MouseEvent event) -> {
-                    System.out.println("DRAG_DETECTED");
-                    Dragboard db = listCell.startDragAndDrop(TransferMode.MOVE);
-
-                    ClipboardContent content = new ClipboardContent();
-                    content.putString(String.valueOf(listCell.getIndex())); // paste index into dragboard
-                    db.setContent(content);
-
-                    event.consume();
-                });
-
-                listCell.setOnDragOver((DragEvent event) -> {
-                    System.out.println("DRAG_OVER");
-
-                    if (event.getGestureSource() != listCell && event.getDragboard().hasString()) {
-                        event.acceptTransferModes(TransferMode.MOVE);
-                    }
-
-                    event.consume();
-                });
-
-                listCell.setOnDragEntered((DragEvent event) -> {
-                    System.out.println("DRAG_ENTERED");
-
-                    if (event.getGestureSource() != listCell && event.getDragboard().hasString()) {
-                        listCell.setStyle("color: green;");
-                    }
-
-                    event.consume();
-                });
-
-                listCell.setOnDragExited((DragEvent event) -> {
-                    System.out.println("DRAG_EXITED");
-
-                    listCell.setStyle("");
-
-                    event.consume();
-                });
-
-                listCell.setOnDragDropped((DragEvent event) -> {
-                    System.out.println("DRAG_DROPPED");
-
-                    Dragboard db = event.getDragboard();
-                    boolean dragSuccessful = false;
-                    if (db.hasString()) {
-                        ClipboardContent content = new ClipboardContent();
-                        content.putString(String.valueOf(listCell.getIndex()));
-                        db.setContent(content);
-                        dragSuccessful = true;
-                    }
-
-                    event.setDropCompleted(dragSuccessful);
-                    event.consume();
-                });
-
-                listCell.setOnDragDone((DragEvent event) -> {
-                    System.out.println("DRAG_DONE");
-
-                    if (event.getTransferMode() == TransferMode.MOVE) {
-                        swapFileOrder(listCell.getIndex(), Integer.parseInt(event.getDragboard().getString()));
-                    }
-
-                    event.consume();
-                });
+                allowDragAndDrop(listCell);
 
                 return listCell;
             }
+        });
+    }
+
+    private void allowDragAndDrop(ListCell<String> listCell) {
+        configDragDetected(listCell);
+        configDragOver(listCell);
+        configDragEntered(listCell);
+        configDragExited(listCell);
+        configDragDropped(listCell);
+        configDragDone(listCell);
+    }
+
+    private void configDragDone(ListCell<String> listCell) {
+        listCell.setOnDragDone((DragEvent event) -> {
+            System.out.println("DRAG_DONE");
+
+            if (event.getTransferMode() == TransferMode.MOVE) {
+                swapFileOrder(listCell.getIndex(), Integer.parseInt(event.getDragboard().getString()));
+            }
+
+            event.consume();
+        });
+    }
+
+    private void configDragDropped(ListCell<String> listCell) {
+        listCell.setOnDragDropped((DragEvent event) -> {
+            System.out.println("DRAG_DROPPED");
+
+            Dragboard db = event.getDragboard();
+            boolean dragSuccessful = false;
+            if (db.hasString()) {
+                ClipboardContent content = new ClipboardContent();
+                content.putString(String.valueOf(listCell.getIndex()));
+                db.setContent(content);
+                dragSuccessful = true;
+            }
+
+            event.setDropCompleted(dragSuccessful);
+            event.consume();
+        });
+    }
+
+    private void configDragExited(ListCell<String> listCell) {
+        listCell.setOnDragExited((DragEvent event) -> {
+            System.out.println("DRAG_EXITED");
+
+            listCell.setStyle("");
+
+            event.consume();
+        });
+    }
+
+    private void configDragEntered(ListCell<String> listCell) {
+        listCell.setOnDragEntered((DragEvent event) -> {
+            System.out.println("DRAG_ENTERED");
+
+            if (event.getGestureSource() != listCell && event.getDragboard().hasString()) {
+                listCell.setStyle("color: green;");
+            }
+
+            event.consume();
+        });
+    }
+
+    private void configDragOver(ListCell<String> listCell) {
+        listCell.setOnDragOver((DragEvent event) -> {
+            System.out.println("DRAG_OVER");
+
+            if (event.getGestureSource() != listCell && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+
+            event.consume();
+        });
+    }
+
+    private void configDragDetected(ListCell<String> listCell) {
+        listCell.setOnDragDetected((MouseEvent event) -> {
+            System.out.println("DRAG_DETECTED");
+            Dragboard db = listCell.startDragAndDrop(TransferMode.MOVE);
+
+            ClipboardContent content = new ClipboardContent();
+            content.putString(String.valueOf(listCell.getIndex())); // paste index into dragboard
+            db.setContent(content);
+
+            event.consume();
         });
     }
 
