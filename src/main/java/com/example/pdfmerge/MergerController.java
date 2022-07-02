@@ -2,7 +2,6 @@ package com.example.pdfmerge;
 
 import com.example.pdfmerge.exceptions.NoFilesException;
 import com.example.pdfmerge.model.PDFMerger;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
@@ -11,7 +10,6 @@ import javafx.util.Callback;
 
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class MergerController {
     public Button btnChooseFiles;
@@ -96,11 +94,9 @@ public class MergerController {
                     Dragboard db = event.getDragboard();
                     boolean dragSuccessful = false;
                     if (db.hasString()) {
-                        int tempIndex = Integer.parseInt(db.getString());
                         ClipboardContent content = new ClipboardContent();
-                        content.putString(listCell.getItem());
+                        content.putString(String.valueOf(listCell.getIndex()));
                         db.setContent(content);
-                        stringListView.getItems().set(listCell.getIndex(), stringListView.getItems().get(tempIndex));
                         dragSuccessful = true;
                     }
 
@@ -111,9 +107,8 @@ public class MergerController {
                 listCell.setOnDragDone((DragEvent event) -> {
                     System.out.println("DRAG_DONE");
 
-                    // TODO: propagate swapped changes into this.merger
                     if (event.getTransferMode() == TransferMode.MOVE) {
-                        stringListView.getItems().set(listCell.getIndex(), event.getDragboard().getString());
+                        swapFileOrder(listCell.getIndex(), Integer.parseInt(event.getDragboard().getString()));
                     }
 
                     event.consume();
@@ -122,6 +117,19 @@ public class MergerController {
                 return listCell;
             }
         });
+    }
+
+    private void swapFileOrder(int indexA, int indexB) {
+
+        List<File> files = this.merger.getPDFs();
+        File temp = files.get(indexA);
+        files.set(indexA, files.get(indexB));
+        files.set(indexB, temp);
+
+        List<String> displayedFiles = this.selectedFilesPane.getItems();
+        String tempName = displayedFiles.get(indexA);
+        displayedFiles.set(indexA, displayedFiles.get(indexB));
+        displayedFiles.set(indexB, tempName);
     }
 
     private void updateSelectedFilesPane() {
