@@ -29,7 +29,6 @@ public class MergerController {
 
     public void onChooseButtonClick(ActionEvent actionEvent) {
         configureFileCells();
-
         this.merger.openFileChooser(baseStage);
         int num = this.merger.getPDFs().size();
         updateSelectedFilesPane();
@@ -68,7 +67,6 @@ public class MergerController {
 
     private void configDragDone(ListCell<String> listCell) {
         listCell.setOnDragDone((DragEvent event) -> {
-//            System.out.println("DRAG_DONE");
 
             if (event.getTransferMode() == TransferMode.MOVE) {
                 swapFileOrder(listCell.getIndex(), Integer.parseInt(event.getDragboard().getString()));
@@ -80,7 +78,6 @@ public class MergerController {
 
     private void configDragDropped(ListCell<String> listCell) {
         listCell.setOnDragDropped((DragEvent event) -> {
-//            System.out.println("DRAG_DROPPED");
 
             Dragboard db = event.getDragboard();
             boolean dragSuccessful = false;
@@ -98,7 +95,6 @@ public class MergerController {
 
     private void configDragExited(ListCell<String> listCell) {
         listCell.setOnDragExited((DragEvent event) -> {
-//            System.out.println("DRAG_EXITED");
 
             listCell.setStyle("");
 
@@ -108,7 +104,6 @@ public class MergerController {
 
     private void configDragEntered(ListCell<String> listCell) {
         listCell.setOnDragEntered((DragEvent event) -> {
-//            System.out.println("DRAG_ENTERED");
 
             if (event.getGestureSource() != listCell && event.getDragboard().hasString()) {
                 listCell.setStyle("color: green;");
@@ -120,7 +115,6 @@ public class MergerController {
 
     private void configDragOver(ListCell<String> listCell) {
         listCell.setOnDragOver((DragEvent event) -> {
-//            System.out.println("DRAG_OVER");
 
             if (event.getGestureSource() != listCell && event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.MOVE);
@@ -132,7 +126,7 @@ public class MergerController {
 
     private void configDragDetected(ListCell<String> listCell) {
         listCell.setOnDragDetected((MouseEvent event) -> {
-//            System.out.println("DRAG_DETECTED");
+
             Dragboard db = listCell.startDragAndDrop(TransferMode.MOVE);
 
             ClipboardContent content = new ClipboardContent();
@@ -144,6 +138,10 @@ public class MergerController {
     }
 
     private void swapFileOrder(int indexA, int indexB) {
+
+        int size = this.merger.getPDFs().size();
+        if (indexA >= size || indexB >= size)
+            return;
 
         List<File> files = this.merger.getPDFs();
         File temp = files.get(indexA);
