@@ -168,12 +168,22 @@ public class MergerController {
 
     public void onMergeButtonClick(ActionEvent actionEvent) {
         try {
-            this.merger.mergeFiles(this.mergedFileName.getText());
-            updateOutputLabel("Merged!");
-            resetSelectionAndPane();
+            String customFileName = this.mergedFileName.getText();
+            if (isValidFileName(customFileName)) {
+                this.merger.mergeFiles(customFileName);
+                updateOutputLabel("Merged!");
+                resetSelectionAndPane();
+            } else {
+                updateOutputLabel("Please only use numbers, alphabet letters, '-', and '_'.");
+                this.mergedFileName.setText("");
+            }
         } catch (NoFilesException e) {
             updateOutputLabel("No PDFs selected.");
         }
+    }
+
+    private boolean isValidFileName(String customFileName) {
+        return customFileName.matches("[\\w_-]*");
     }
 
     private void updateOutputLabel(String s) {
