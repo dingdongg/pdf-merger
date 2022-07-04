@@ -55,11 +55,7 @@ public class SavePathSelector {
     }
 
     public String getFileFullPath(String fileName) {
-        if (!fileName.equals("")) {
-            this.fileName = updateFileName(fileName);
-        } else {
-            this.fileName = updateFileName("");
-        }
+        this.fileName = updateFileName(fileName);
         return this.userPrefs.get(this.PATH_KEY, this.DEFAULT_DIRECTORY) + this.fileName;
     }
 }
