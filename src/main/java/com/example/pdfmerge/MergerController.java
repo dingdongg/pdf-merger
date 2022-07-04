@@ -21,6 +21,7 @@ public class MergerController {
     public Label outputLabel;
     public Button btnEditSaveLocation;
     public Button btnResetSelection;
+    public TextField mergedFileName;
 
     public static void initStage(Stage stage) {
         baseStage = stage;
@@ -167,7 +168,7 @@ public class MergerController {
 
     public void onMergeButtonClick(ActionEvent actionEvent) {
         try {
-            this.merger.mergeFiles();
+            this.merger.mergeFiles(this.mergedFileName.getText());
             updateOutputLabel("Merged!");
             resetSelectionAndPane();
         } catch (NoFilesException e) {

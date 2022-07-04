@@ -50,7 +50,7 @@ public class PDFMerger {
     }
 
     // merge the selected files
-    public void mergeFiles() throws NoFilesException {
+    public void mergeFiles(String fileName) throws NoFilesException {
         if (this.PDFfiles.size() == 0) {
             throw new NoFilesException("No files were selected");
         } else {
@@ -63,7 +63,7 @@ public class PDFMerger {
                     System.out.println("FILE NOT FOUND");
                 }
             }
-            merger.setDestinationFileName(pathSelector.getFileFullPath());
+            merger.setDestinationFileName(pathSelector.getFileFullPath(fileName));
 
             try {
                 merger.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());

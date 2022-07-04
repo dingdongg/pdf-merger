@@ -24,10 +24,13 @@ public class SavePathSelector {
         } else {
             this.setSavePath(getSavePath());
         }
-        this.fileName = updateFileName(); // set to "/merged-YYYYMMDDHHMMSS.pdf"
+        this.fileName = updateFileName(""); // set to "/merged-YYYYMMDDHHMMSS.pdf"
     }
 
-    private String updateFileName() {
+    private String updateFileName(String fileName) {
+        if (!fileName.equals("")) {
+            return "/" + fileName + this.PDF_EXT;
+        }
         Calendar dateTime = Calendar.getInstance();
         return this.DEFAULT_FILE_NAME + getDateIdentifier(dateTime) + this.PDF_EXT;
     }
@@ -51,7 +54,10 @@ public class SavePathSelector {
         return this.userPrefs.get(this.PATH_KEY, this.DEFAULT_DIRECTORY);
     }
 
-    public String getFileFullPath() {
+    public String getFileFullPath(String fileName) {
+        if (!fileName.equals("")) {
+            this.fileName = updateFileName(fileName);
+        }
         return this.userPrefs.get(this.PATH_KEY, this.DEFAULT_DIRECTORY) + this.fileName;
     }
 }
