@@ -18,9 +18,9 @@ import java.util.List;
  */
 public class PDFMerger {
 
-    private FileChooser fileChooser;
+    private final FileChooser fileChooser;
     private List<File> PDFfiles;
-    private SavePathSelector pathSelector;
+    private final SavePathSelector pathSelector;
     private final int MAX_NUM_FILES = 5;
 
     public PDFMerger() {
