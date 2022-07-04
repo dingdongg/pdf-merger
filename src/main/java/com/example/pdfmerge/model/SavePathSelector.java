@@ -42,11 +42,11 @@ public class SavePathSelector {
         String hour = Integer.toString(timeInfo.get(Calendar.HOUR_OF_DAY));
         String min = Integer.toString(timeInfo.get(Calendar.MINUTE));
         String sec = Integer.toString(timeInfo.get(Calendar.SECOND));
-//        System.out.println(String.format("%s %s %s, %s:%s:%sPM", year, month, day, hour, min, sec));
         return year + month + day + hour + min + sec;
     }
 
     public void setSavePath(String absPath) {
+//        System.out.println(absPath);
         this.userPrefs.put(this.PATH_KEY, absPath);
     }
 
@@ -57,6 +57,8 @@ public class SavePathSelector {
     public String getFileFullPath(String fileName) {
         if (!fileName.equals("")) {
             this.fileName = updateFileName(fileName);
+        } else {
+            this.fileName = updateFileName("");
         }
         return this.userPrefs.get(this.PATH_KEY, this.DEFAULT_DIRECTORY) + this.fileName;
     }
