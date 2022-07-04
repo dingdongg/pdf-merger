@@ -175,8 +175,8 @@ public class MergerController {
                 resetSelectionAndPane();
             } else {
                 updateOutputLabel("Please only use numbers, alphabet letters, '-', and '_'.");
-                this.mergedFileName.setText("");
             }
+            this.mergedFileName.setText("");
         } catch (NoFilesException e) {
             updateOutputLabel("No PDFs selected.");
         }
